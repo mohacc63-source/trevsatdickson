@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trev's Cafe and Restaurant - Premium Fine Dining</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0f0f0f;
+            --secondary-dark: #1a1a1a;
+            --accent-gold: #d4af37;
+            --accent-light-gold: #e8c547;
+            --text-light: #f5f5f5;
+            --text-muted: #d0d0d0;
+            --border-color: #2a2a2a;
+            --bg-dark: #121212;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        h1 { font-size: 5rem; line-height: 1.1; }
+        h2 { font-size: 3.5rem; margin: 2rem 0 1rem; }
+        h3 { font-size: 1.8rem; }
+        h4 { font-size: 1.3rem; }
+        p { margin: 1rem 0; color: var(--text-muted); font-size: 1rem; }
+
+        a {
+            text-decoration: none;
+            color: var(--accent-gold);
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-light-gold);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.98);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 1rem;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a.active,
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 7px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(10px, -10px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.99);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 999;
+            padding: 1.5rem;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active {
+            color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Hero */
+        .hero {
+            margin-top: 80px;
+            height: 100vh;
+            min-height: 600px;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.8), rgba(15, 15, 15, 0.7)), url('https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.30_sydrh0.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, transparent 10%, rgba(15, 15, 15, 0.6) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            letter-spacing: 4px;
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-style: italic;
+            letter-spacing: 2px;
+            font-family: 'Cormorant Garamond', serif;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 1.2rem 3.5rem;
+            border-radius: 0;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent-gold);
+            cursor: pointer;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--accent-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.25);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--accent-gold);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent-gold);
+            animation: bounce 2s infinite;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-15px); }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--secondary-dark);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            border-radius: 0;
+            text-align: center;
+            max-width: 550px;
+            width: 100%;
+            position: relative;
+            animation: slideUp 0.4s ease;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--accent-gold);
+            font-size: 2.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-light-gold);
+            transform: rotate(90deg);
+        }
+
+        .modal h2 {
+            margin: 0 0 1.5rem;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+        }
+
+        .promo-badge {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 1rem 2rem;
+            border-radius: 0;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .modal-quote {
+            font-style: italic;
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            margin: 2rem 0;
+            line-height: 1.9;
+            letter-spacing: 0.5px;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 2rem;
+            }
+
+            .modal h2 {
+                font-size: 2rem;
+            }
+
+            .promo-badge {
+                font-size: 1.1rem;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+
+        /* Sections */
+        .section {
+            padding: 8rem 3rem;
+            min-height: 100vh;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 3rem 1.5rem;
+                min-height: auto;
+            }
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin: 5rem 0;
+        }
+
+        .feature-card {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.05);
+            transform: translateY(-8px);
+        }
+
+        .feature-card h3 {
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Menu Grid */
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .menu-item {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .menu-item:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-12px);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.15);
+        }
+
+        .menu-item-image {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+        }
+
+        .menu-item-content {
+            padding: 2.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-item h3 {
+            color: var(--accent-gold);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .menu-item-description {
+            color: var(--text-muted);
+            font-size: 1rem;
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .menu-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                margin: 2rem 0;
+            }
+
+            .menu-item-image {
+                height: 250px;
+            }
+
+            .menu-item-content {
+                padding: 2rem;
+            }
+        }
+
+        /* Order Section */
+        .order-section {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .category-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.9rem 2rem;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border-color: var(--accent-gold);
+        }
+
+        .order-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .order-item {
+            background: var(--primary-dark);
+            border: 1px solid var(--border-color);
+            padding: 0;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .order-item:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .order-item-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .order-item-content {
+            padding: 1.5rem;
+        }
+
+        .item-name {
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+
+        .item-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .item-price {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        .add-btn {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border-radius: 0;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Cart */
+        .cart-section {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), transparent);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .cart-title {
+            color: var(--accent-gold);
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+        }
+
+        .cart-item {
+            background: var(--primary-dark);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .cart-item-info h4 {
+            color: var(--accent-gold);
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-info p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .quantity-control {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            padding: 0.3rem;
+        }
+
+        .qty-btn {
+            width: 35px;
+            height: 35px;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .qty-btn:hover {
+            opacity: 0.8;
+        }
+
+        .qty-display {
+            width: 40px;
+            text-align: center;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .remove-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .remove-btn:hover {
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+        }
+
+        .item-total {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+            min-width: 100px;
+            text-align: right;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .cart-summary {
+            background: var(--primary-dark);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .summary-row.total {
+            border-top: 2px solid var(--border-color);
+            padding-top: 1.5rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        /* Checkout */
+        .checkout-section {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .payment-label {
+            display: block;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .payment-radio {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+        }
+
+        .payment-option input[type="radio"] {
+            cursor: pointer;
+            width: 22px;
+            height: 22px;
+            accent-color: var(--accent-gold);
+        }
+
+        .payment-option label {
+            cursor: pointer;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--primary-dark);
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.03);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-image:hover {
+            border-color: var(--accent-gold);
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        /* Quick Links */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .link-card {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-radius: 0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .link-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-8px);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .link-card h3 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .link-card p {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border-color);
+            padding: 4rem 3rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            text-align: left;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-section p {
+            font-size: 1rem;
+            line-height: 2;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            width: 48px;
+            height: 48px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--accent-gold);
+            border-radius: 0;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            transition: all 0.3s ease;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 3rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .success-message {
+            background: rgba(76, 175, 80, 0.15);
+            border: 1px solid rgba(76, 175, 80, 0.4);
+            color: #90ee90;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0;
+            display: none;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .page-enter {
+            animation: pageEnter 0.3s ease;
+        }
+
+        @keyframes pageEnter {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section h2 {
+            color: var(--accent-gold);
+            text-align: center;
+            position: relative;
+            padding-bottom: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        section > .container > p:first-of-type {
+            text-align: center;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 1.5rem auto 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                margin: 3rem 0;
+            }
+
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-buttons button {
+                width: 100%;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cart-item-controls {
+                width: 100%;
+            }
+
+            footer {
+                padding: 2rem 1.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            section > .container > p:first-of-type {
+                font-size: 1rem;
+                margin: 1rem auto 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">TREV'S</div>
+            <ul class="nav-links">
+                <li><a href="#" data-page="home" class="nav-link active">Home</a></li>
+                <li><a href="#" data-page="menu" class="nav-link">Menu</a></li>
+                <li><a href="#" data-page="order" class="nav-link">Order</a></li>
+                <li><a href="#" data-page="special" class="nav-link">Specials</a></li>
+                <li><a href="#" data-page="about" class="nav-link">About</a></li>
+                <li><a href="#" data-page="contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#" data-page="home" class="mobile-nav-link active">Home</a>
+        <a href="#" data-page="menu" class="mobile-nav-link">Menu</a>
+        <a href="#" data-page="order" class="mobile-nav-link">Order</a>
+        <a href="#" data-page="special" class="mobile-nav-link">Specials</a>
+        <a href="#" data-page="about" class="mobile-nav-link">About</a>
+        <a href="#" data-page="contact" class="mobile-nav-link">Contact</a>
+    </div>
+
+    <!-- Promo Modal -->
+    <div class="modal" id="promoModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closePromo()">✕</button>
+            <div class="promo-badge">MONDAY 10% OFF</div>
+            <h2>Exclusive Offer</h2>
+            <p class="modal-quote">"Exceptional flavors, crafted with passion and served with elegance. Every moment is a celebration of culinary excellence."</p>
+            <p style="color: var(--text-muted); margin-top: 1.5rem; font-size: 1rem;">Valid on Mondays · Dine-in • Takeaway • Delivery</p>
+        </div>
+    </div>
+
+    <!-- HOME PAGE -->
+    <section id="home" class="section active page-enter">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>TREV'S</h1>
+                <p class="hero-tagline">Cafe and Restaurant</p>
+                <p class="hero-subtitle">Breakfast • Lunch • Dinner</p>
+                <p style="margin-bottom: 3rem; color: var(--text-light);">Award-winning cuisine in the heart of Dickson</p>
+                <div class="hero-buttons">
+                    <button class="cta-button" onclick="navigateTo('order')">Order Online</button>
+                    <button class="cta-button secondary" onclick="bookOnline()">Reserve Table</button>
+                </div>
+            </div>
+            <div class="scroll-indicator">↓</div>
+        </div>
+
+        <div class="container" style="margin-top: 5rem;">
+            <h2>Experience Fine Dining</h2>
+            <p>A sophisticated destination where quality ingredients meet culinary expertise. Every dish tells a story of passion and precision.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>☕ Premium Coffee</h3>
+                    <p>Ethically sourced, expertly roasted, and crafted with precision by our master baristas.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🍽️ Culinary Excellence</h3>
+                    <p>Contemporary Australian cuisine prepared with the finest seasonal produce from local suppliers.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🍷 Curated Selection</h3>
+                    <p>A carefully chosen collection of premium wines and craft beverages to complement every dish.</p>
+                </div>
+            </div>
+
+            <div style="margin: 6rem 0;">
+                <h2>Discover More</h2>
+                <div class="quick-links">
+                    <a href="#" onclick="navigateTo('order')" class="link-card">
+                        <h3>Place Your Order</h3>
+                        <p>Browse our menu and order for pickup or delivery</p>
+                    </a>
+                    <a href="javascript:bookOnline()" class="link-card">
+                        <h3>Book Your Table</h3>
+                        <p>Reserve your spot for an unforgettable experience</p>
+                    </a>
+                    <a href="https://app.squareup.com/gift/ML98DXGN0QVH1/order" target="_blank" class="link-card">
+                        <h3>Gift Vouchers</h3>
+                        <p>Give the gift of exceptional dining</p>
+                    </a>
+                </div>
+            </div>
+
+            <h2>Gallery</h2>
+            <div class="image-gallery" id="homeGallery"></div>
+        </div>
+    </section>
+
+    <!-- MENU PAGE -->
+    <section id="menu" class="section page-enter">
+        <div class="container">
+            <h2>Our Menu</h2>
+            <p>Thoughtfully curated selections celebrating seasonal ingredients and culinary tradition.</p>
+
+            <h3 style="color: var(--accent-gold); margin: 5rem 0 1rem; text-align: center; font-size: 2rem; letter-spacing: 1px;">Breakfast & Brunch</h3>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 3rem;">Start your day with our signature selections, crafted to perfection.</p>
+
+            <div class="menu-container" id="breakfastContainer"></div>
+
+            <h3 style="color: var(--accent-gold); margin: 5rem 0 1rem; text-align: center; font-size: 2rem; letter-spacing: 1px;">Lunch Specials</h3>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 3rem;">Explore our finest daytime offerings.</p>
+
+            <div class="menu-container" id="lunchContainer"></div>
+
+            <h3 style="color: var(--accent-gold); margin: 5rem 0 1rem; text-align: center; font-size: 2rem; letter-spacing: 1px;">Evening Dining</h3>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 3rem;">Experience our premium dinner selection.</p>
+
+            <div class="menu-container" id="dinnerContainer"></div>
+        </div>
+    </section>
+
+    <!-- ORDER PAGE -->
+    <section id="order" class="section page-enter">
+        <div class="container">
+            <h2>Place Your Order</h2>
+            <p>Select items, customize your order, and choose your preferred delivery method.</p>
+
+            <div class="order-section">
+                <h3 style="color: var(--accent-gold); margin-bottom: 1.5rem; letter-spacing: 1px;">Browse Items</h3>
+                
+                <div>
+                    <label class="payment-label">Select Category</label>
+                    <div class="category-selector" id="categorySelector"></div>
+                </div>
+
+                <div class="order-items" id="orderItems"></div>
+            </div>
+
+            <!-- Cart -->
+            <div class="cart-section">
+                <h2 class="cart-title">Your Order</h2>
+                <div id="cartItems" class="cart-empty">Add items to begin your order</div>
+                <div id="cartSummary" style="display: none;">
+                    <div class="cart-summary">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax (10%):</span>
+                            <span id="tax">$0.00</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>TOTAL:</span>
+                            <span id="total">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkout -->
+            <div class="checkout-section" id="checkoutSection" style="display: none;">
+                <h3 style="color: var(--accent-gold); margin-bottom: 2rem; letter-spacing: 1px;">Delivery Details</h3>
+
+                <div class="payment-options">
+                    <label class="payment-label">Payment Method</label>
+                    <div class="payment-radio">
+                        <div class="payment-option">
+                            <input type="radio" id="payCounter" name="payment" value="counter" checked>
+                            <label for="payCounter">Pay at Counter</label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="payNow" name="payment" value="now">
+                            <label for="payNow">Pay Now (Card)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <form onsubmit="handleOrderSubmit(event)">
+                    <div class="form-group">
+                        <label for="customerName">Name *</label>
+                        <input type="text" id="customerName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerEmail">Email *</label>
+                        <input type="email" id="customerEmail" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerPhone">Phone *</label>
+                        <input type="tel" id="customerPhone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerAddress">Delivery Address *</label>
+                        <textarea id="customerAddress" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="specialNotes">Special Requests</label>
+                        <textarea id="specialNotes" placeholder="Allergies, preferences, etc."></textarea>
+                    </div>
+
+                    <div class="success-message" id="successMessage">
+                        ✓ Order confirmed! We'll contact you shortly.
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="submit" class="cta-button">Complete Order</button>
+                        <button type="button" class="cta-button secondary" onclick="clearCart()">Clear Cart</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECIALS PAGE -->
+    <section id="special" class="section page-enter">
+        <div class="container">
+            <h2>Chef's Specials</h2>
+            <p>Signature creations showcasing seasonal excellence and culinary innovation.</p>
+
+            <div class="menu-container" id="specialContainer"></div>
+
+            <div style="background: rgba(212, 175, 55, 0.08); border: 1px solid var(--border-color); padding: 3rem; margin-top: 5rem;">
+                <h3 style="color: var(--accent-gold); margin-bottom: 2rem; font-size: 1.6rem;">Why Trev's</h3>
+                <ul style="list-style: none; color: var(--text-light); columns: 2; gap: 2rem;">
+                    <li style="margin: 1.2rem 0; font-size: 1.05rem;">★ Finest local and seasonal ingredients</li>
+                    <li style="margin: 1.2rem 0; font-size: 1.05rem;">★ Award-winning preparation techniques</li>
+                    <li style="margin: 1.2rem 0; font-size: 1.05rem;">★ Premium beverage collection</li>
+                    <li style="margin: 1.2rem 0; font-size: 1.05rem;">★ Exceptional service standards</li>
+                    <li style="margin: 1.2rem 0; font-size: 1.05rem;">★ Perfect for every occasion</li>
+                    <li style="margin: 1.2rem 0; font-size: 1.05rem;">★ Thoughtfully designed menus</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT PAGE -->
+    <section id="about" class="section page-enter">
+        <div class="container">
+            <h2>About Trev's</h2>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin: 4rem 0;">
+                <div>
+                    <h3 style="color: var(--accent-gold); margin-bottom: 1.5rem; font-size: 1.6rem;">Our Story</h3>
+                    <p style="line-height: 2; color: var(--text-muted);">Established in the heart of Dickson, Trev's stands as a beacon of culinary excellence. We celebrate the art of hospitality through carefully sourced ingredients, expert preparation, and genuine warmth.</p>
+                    <p style="line-height: 2; color: var(--text-muted);">By day, our cafe buzzes with energy—from espresso connoisseurs to business professionals. By evening, we transform into an intimate dining destination where exceptional cuisine takes center stage.</p>
+                    <p style="line-height: 2; color: var(--text-muted);">Each dish reflects our commitment to quality, creativity, and respect for the craft of cooking.</p>
+                </div>
+                <img src="https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_14_bs67j7.jpg" alt="Trev's Interior" style="width: 100%; max-height: 500px; object-fit: cover; border: 1px solid var(--border-color);">
+            </div>
+
+            <h3 style="color: var(--accent-gold); margin: 5rem 0 2rem; text-align: center; font-size: 1.8rem; letter-spacing: 1px;">Our Philosophy</h3>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Local Sourcing</h3>
+                    <p>We partner with regional producers to celebrate Canberra's finest produce and establish meaningful community connections.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Culinary Craft</h3>
+                    <p>Our kitchen applies traditional techniques with modern innovation, creating dishes of consistent excellence and flair.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Coffee Culture</h3>
+                    <p>From selection to brewing, every cup represents our dedication to the craft and art of exceptional coffee.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Beverage Curation</h3>
+                    <p>Our carefully assembled wine and beer selection complements our cuisine and elevates every dining experience.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Hospitality</h3>
+                    <p>We create memorable moments through attentive service and genuine care for every guest who walks through our doors.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Community</h3>
+                    <p>Trev's is more than a restaurant—it's a gathering place where people celebrate milestones and create lasting memories.</p>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 5rem;">Explore Our Space</h2>
+            <div class="image-gallery" id="aboutGallery"></div>
+        </div>
+    </section>
+
+    <!-- CONTACT PAGE -->
+    <section id="contact" class="section page-enter">
+        <div class="container">
+            <h2>Connect With Us</h2>
+            <p>We'd love to hear from you. Reach out for reservations, inquiries, or simply to share your experience.</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin: 4rem 0;">
+                <div style="background: var(--bg-dark); padding: 3rem; border: 1px solid var(--border-color);">
+                    <h3 style="color: var(--accent-gold); margin-bottom: 2rem; font-size: 1.6rem;">Location & Hours</h3>
+                    
+                    <div style="margin-bottom: 2.5rem;">
+                        <div style="color: var(--accent-gold); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.8rem;">Address</div>
+                        <div style="color: var(--text-light); font-size: 1.1rem; line-height: 1.8;">20 Challis Street<br>Dickson, ACT</div>
+                    </div>
+
+                    <div style="margin-bottom: 2.5rem;">
+                        <div style="color: var(--accent-gold); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.8rem;">Phone</div>
+                        <div style="color: var(--text-light); font-size: 1.1rem;"><a href="tel:0406369224">0406 369 224</a></div>
+                    </div>
+
+                    <h3 style="color: var(--accent-gold); margin: 2.5rem 0 1.5rem; font-size: 1.4rem;">Hours</h3>
+                    <table style="background: var(--primary-dark); border: 1px solid var(--border-color); border-collapse: collapse; width: 100%; margin: 1rem 0;">
+                        <tr>
+                            <th style="background: rgba(212, 175, 55, 0.1); color: var(--accent-gold); padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-color); font-weight: 700;">Day</th>
+                            <th style="background: rgba(212, 175, 55, 0.1); color: var(--accent-gold); padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-color); font-weight: 700;">Hours</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Monday–Friday</td>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">8:00am–2:30pm · 5:30pm–9:00pm</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Saturday</td>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">8:30am–2:00pm · 5:30pm–9:00pm</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem;">Sunday</td>
+                            <td style="padding: 1rem;">8:30am–2:00pm</td>
+                        </tr>
+                    </table>
+
+                    <h3 style="color: var(--accent-gold); margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.4rem;">Follow Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/trevsatdickson" target="_blank" title="Facebook">f</a>
+                        <a href="https://www.instagram.com/trevsatdickson" target="_blank" title="Instagram">📷</a>
+                        <a href="https://www.tripadvisor.com.au/Restaurant_Review-g255057-d3602975-Reviews-Trevs_At_Dickson-Canberra_Greater_Canberra_Australian_Capital_Territory.html" target="_blank" title="TripAdvisor">✓</a>
+                    </div>
+                </div>
+
+                <div style="background: var(--bg-dark); padding: 3rem; border: 1px solid var(--border-color);">
+                    <h3 style="color: var(--accent-gold); margin-bottom: 2rem; font-size: 1.6rem;">Send a Message</h3>
+                    <form onsubmit="handleContactSubmit(event)">
+                        <div class="form-group">
+                            <label for="contactName">Name</label>
+                            <input type="text" id="contactName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactEmail">Email</label>
+                            <input type="email" id="contactEmail" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactSubject">Subject</label>
+                            <input type="text" id="contactSubject" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactMessage">Message</label>
+                            <textarea id="contactMessage" required></textarea>
+                        </div>
+
+                        <button type="submit" class="cta-button" style="width: 100%; padding: 1.2rem;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+
+            <div style="background: rgba(212, 175, 55, 0.08); border: 1px solid var(--border-color); padding: 3rem; margin-top: 4rem; text-align: center;">
+                <h3 style="color: var(--accent-gold); margin-bottom: 1.5rem; font-size: 1.6rem;">Make a Reservation</h3>
+                <p style="margin-bottom: 2rem; color: var(--text-muted); font-size: 1.05rem;">Experience our hospitality. Reserve your table online.</p>
+                <button onclick="bookOnline()" class="cta-button">Book Your Table</button>
+            </div>
+
+            <h2 style="margin-top: 5rem;">Visual Journey</h2>
+            <div class="image-gallery" id="contactGallery"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>TREV'S CAFE & RESTAURANT</h4>
+                <p>An award-winning destination for those who appreciate culinary excellence and warm hospitality in the heart of Dickson.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/trevsatdickson" target="_blank">f</a>
+                    <a href="https://www.instagram.com/trevsatdickson" target="_blank">📷</a>
+                    <a href="https://www.tripadvisor.com.au/Restaurant_Review-g255057-d3602975-Reviews-Trevs_At_Dickson-Canberra_Greater_Canberra_Australian_Capital_Territory.html" target="_blank">✓</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>HOURS</h4>
+                <p><strong>Mon–Fri</strong><br>8:00am – 2:30pm<br>5:30pm – 9:00pm</p>
+                <p><strong>Sat</strong><br>8:30am – 2:00pm<br>5:30pm – 9:00pm</p>
+                <p><strong>Sun</strong><br>8:30am – 2:00pm</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>CONTACT</h4>
+                <p><strong>Address</strong><br>20 Challis Street<br>Dickson, ACT</p>
+                <p><strong>Phone</strong><br><a href="tel:0406369224">0406 369 224</a></p>
+            </div>
+
+            <div class="footer-section">
+                <h4>EXPLORE</h4>
+                <p><a href="#" onclick="navigateTo('menu')">Menu</a></p>
+                <p><a href="#" onclick="navigateTo('order')">Order Online</a></p>
+                <p><a href="#" onclick="navigateTo('special')">Specials</a></p>
+                <p><a href="#" onclick="navigateTo('about')">About</a></p>
+                <p><a href="javascript:bookOnline()">Book Table</a></p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 LST PTY LTD trading as Trev's Cafe and Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // IMAGE MAPPING - Perfect match to menu items
+        const imageMap = {
+            'Granola': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_6_cq5si7.jpg',
+            'French Toast': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_7_ppiywe.jpg',
+            'Bircher Muesli': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_5_iimwwr.jpg',
+            'Avocado Toast': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_3_uvaixk.jpg',
+            'Eggs Benedict': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_8_de1cw8.jpg',
+            'Hash Browns': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_10_sfm2lt.jpg',
+            'Pancakes': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_4_lyzuel.jpg',
+            'Fruit Salad': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_2_unx3pe.jpg',
+            
+            'Margherita Pizza': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_f6uyys.jpg',
+            'Pepperoni Pizza': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_16_dgzsfq.jpg',
+            'Chicken Pizza': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_3_ppeiml.jpg',
+            'Vegetarian Pizza': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_13_tyiwa8.jpg',
+            'Caesar Salad': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_12_sbvcig.jpg',
+            'Seafood Pasta': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_11_d3dxq4.jpg',
+            'Fish & Chips': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_4_kksnfy.jpg',
+            'Grilled Vegetables': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_5_e1gc8n.jpg',
+            
+            'Chicken Scallopini': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_2_ywac9e.jpg',
+            'Lamb Shoulder': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_14_bs67j7.jpg',
+            'Mushroom Risotto': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_8_htkp8i.jpg',
+            'Seafood Platter': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_6_k7210s.jpg',
+            
+            'Famous Pizza': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_1_elyr2b.jpg',
+            'House Coffee': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_7_xobw4g.jpg',
+            'Seasonal Special': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_9_avpvhc.jpg',
+            'Sweet Dessert': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_10_uwbwmt.jpg',
+            'Gourmet Bowl': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_9_e8mmtm.jpg',
+            'Wine Pairing': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_15_zexigh.jpg',
+            'Catering Platter': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_16_efwvzk.jpg',
+            'Business Lunch': 'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_11_xdbksb.jpg'
+        };
+
+        const galleryImages = [
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.30_1_onqeoe.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.30_2_qcrgvr.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.30_3_zexlpz.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.30_4_buit95.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.30_5_avgf4o.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_aluelu.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_1_mvwzys.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_12_npk490.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_13_yoj1qh.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_14_xxhzoo.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.31_15_vqxq6v.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_17_qsskpn.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_18_neopey.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_19_qpzu2m.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_20_q7l4xr.jpg',
+            'https://res.cloudinary.com/dcty4csuv/image/upload/WhatsApp_Image_2026-05-30_at_09.01.32_21_jddevh.jpg'
+        ];
+
+        // Menu Data
+        const breakfastItems = [
+            { name: 'Granola', desc: 'Coconut yoghurt, fresh strawberries, house granola' },
+            { name: 'French Toast', desc: 'Brioche, apple compote, cinnamon, salted caramel' },
+            { name: 'Bircher Muesli', desc: 'Rolled oats, coconut yoghurt, raspberry, caramel' },
+            { name: 'Avocado Toast', desc: 'Sourdough, ripe avocado, feta, dukkah, snow pea' },
+            { name: 'Eggs Benedict', desc: 'Hilltops eggs, english muffin, hollandaise, ham' },
+            { name: 'Hash Browns', desc: 'Crispy golden hash, onion relish, garlic aioli' },
+            { name: 'Pancakes', desc: 'Fluffy pancakes, maple syrup, fresh berries, cream' },
+            { name: 'Fruit Salad', desc: 'Seasonal fruit, kaffir lime, coconut yoghurt' }
+        ];
+
+        const lunchItems = [
+            { name: 'Margherita Pizza', desc: 'Tomato base, fresh mozzarella, basil, olive oil' },
+            { name: 'Pepperoni Pizza', desc: 'Tomato, pepperoni, mozzarella, oregano' },
+            { name: 'Chicken Pizza', desc: 'Marinated chicken, capsicum, onion, mozzarella' },
+            { name: 'Vegetarian Pizza', desc: 'Seasonal vegetables, mushrooms, roasted capsicum' },
+            { name: 'Caesar Salad', desc: 'Romaine, parmesan, croutons, house caesar dressing' },
+            { name: 'Seafood Pasta', desc: 'Linguine, prawns, calamari, garlic, white wine' },
+            { name: 'Fish & Chips', desc: 'Battered barramundi, crispy fries, lemon, aioli' },
+            { name: 'Grilled Vegetables', desc: 'Seasonal vegetables, herbed oil, balsamic' }
+        ];
+
+        const dinnerItems = [
+            { name: 'Chicken Scallopini', desc: 'Tender chicken breast, seasonal vegetables, pan sauce' },
+            { name: 'Lamb Shoulder', desc: 'Slow-cooked lamb, rosemary, roasted root vegetables' },
+            { name: 'Mushroom Risotto', desc: 'Arborio rice, forest mushrooms, parmesan, butter' },
+            { name: 'Seafood Platter', desc: 'Premium selection of ocean bounty, perfectly prepared' }
+        ];
+
+        const specialItems = [
+            { name: 'Famous Pizza', desc: 'Our signature creation with premium toppings' },
+            { name: 'House Coffee', desc: 'Expertly roasted and expertly prepared' },
+            { name: 'Seasonal Special', desc: 'Chef\'s selection showcasing finest ingredients' },
+            { name: 'Sweet Dessert', desc: 'Decadent sweet creations' },
+            { name: 'Gourmet Bowl', desc: 'Fresh and nourishing combinations' },
+            { name: 'Wine Pairing', desc: 'Curated selections to enhance your meal' },
+            { name: 'Catering Platter', desc: 'Perfect for gatherings' },
+            { name: 'Business Lunch', desc: 'Quick, quality meals for professionals' }
+        ];
+
+        const orderItems = [
+            { category: 'Breakfast', name: 'Granola', desc: 'Coconut yoghurt, strawberries', price: 13.50 },
+            { category: 'Breakfast', name: 'French Toast', desc: 'Apple, cinnamon, caramel', price: 15.50 },
+            { category: 'Breakfast', name: 'Bircher Muesli', desc: 'Coconut yoghurt, raspberry', price: 14.00 },
+            { category: 'Breakfast', name: 'Avocado Toast', desc: 'Feta, dukkah, snow pea', price: 16.50 },
+            { category: 'Lunch', name: 'Margherita', desc: 'Tomato, mozzarella, basil', price: 17.50 },
+            { category: 'Lunch', name: 'Pepperoni', desc: 'Tomato, pepperoni, mozzarella', price: 19.00 },
+            { category: 'Lunch', name: 'Caesar Salad', desc: 'Romaine, parmesan, croutons', price: 16.00 },
+            { category: 'Lunch', name: 'Fish & Chips', desc: 'Battered fillet, fries, lemon', price: 18.50 }
+        ];
+
+        // Render Functions
+        function renderMenuSection(container, items) {
+            container.innerHTML = items.map(item => `
+                <div class="menu-item">
+                    <img src="${imageMap[item.name] || galleryImages[Math.floor(Math.random() * galleryImages.length)]}" alt="${item.name}" class="menu-item-image" loading="lazy">
+                    <div class="menu-item-content">
+                        <h3>${item.name}</h3>
+                        <p class="menu-item-description">${item.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderGallery(container, count = 8) {
+            const selected = galleryImages.slice(0, count);
+            container.innerHTML = selected.map(img => `
+                <img src="${img}" alt="Trev's" class="gallery-image" loading="lazy">
+            `).join('');
+        }
+
+        // Order System
+        let cart = {};
+        const categories = ['Breakfast', 'Lunch'];
+
+        function renderCategories() {
+            const selector = document.getElementById('categorySelector');
+            selector.innerHTML = categories.map((cat, i) => `
+                <button type="button" class="category-btn ${i === 0 ? 'active' : ''}" onclick="filterCategory('${cat}')">${cat.toUpperCase()}</button>
+            `).join('');
+        }
+
+        function filterCategory(category) {
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderOrderItems(category);
+        }
+
+        function renderOrderItems(category = 'Breakfast') {
+            const items = orderItems.filter(item => item.category === category);
+            const container = document.getElementById('orderItems');
+            
+            container.innerHTML = items.map(item => `
+                <div class="order-item">
+                    <img src="${imageMap[item.name] || galleryImages[Math.floor(Math.random() * galleryImages.length)]}" alt="${item.name}" class="order-item-image">
+                    <div class="order-item-content">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-desc">${item.desc}</div>
+                        <div class="item-footer">
+                            <div class="item-price">$${item.price.toFixed(2)}</div>
+                            <button type="button" class="add-btn" onclick="addToCart('${item.name}', ${item.price})">Add</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(name, price) {
+            if (!cart[name]) cart[name] = { price, qty: 0 };
+            cart[name].qty++;
+            updateCart();
+        }
+
+        function updateCart() {
+            const items = Object.entries(cart);
+            const container = document.getElementById('cartItems');
+            const summaryContainer = document.getElementById('cartSummary');
+            const checkoutSection = document.getElementById('checkoutSection');
+
+            if (items.length === 0) {
+                container.innerHTML = '<div class="cart-empty">Add items to begin your order</div>';
+                summaryContainer.style.display = 'none';
+                checkoutSection.style.display = 'none';
+            } else {
+                container.innerHTML = items.map(([name, item]) => `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <h4>${name}</h4>
+                            <p>$${item.price.toFixed(2)} each</p>
+                        </div>
+                        <div class="cart-item-controls">
+                            <div class="quantity-control">
+                                <button type="button" class="qty-btn" onclick="updateQty('${name}', -1)">−</button>
+                                <div class="qty-display">${item.qty}</div>
+                                <button type="button" class="qty-btn" onclick="updateQty('${name}', 1)">+</button>
+                            </div>
+                            <button type="button" class="remove-btn" onclick="removeFromCart('${name}')">Remove</button>
+                            <div class="item-total">$${(item.price * item.qty).toFixed(2)}</div>
+                        </div>
+                    </div>
+                `).join('');
+
+                summaryContainer.style.display = 'block';
+                checkoutSection.style.display = 'block';
+                updateSummary();
+            }
+        }
+
+        function updateQty(name, change) {
+            cart[name].qty += change;
+            if (cart[name].qty <= 0) delete cart[name];
+            updateCart();
+        }
+
+        function removeFromCart(name) {
+            delete cart[name];
+            updateCart();
+        }
+
+        function clearCart() {
+            cart = {};
+            updateCart();
+            document.getElementById('successMessage').classList.remove('show');
+        }
+
+        function updateSummary() {
+            const subtotal = Object.values(cart).reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+
+            document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
+            document.getElementById('tax').textContent = '$' + tax.toFixed(2);
+            document.getElementById('total').textContent = '$' + total.toFixed(2);
+        }
+
+        function handleOrderSubmit(event) {
+            event.preventDefault();
+            alert('Order confirmed! We\'ll contact you shortly to confirm details.');
+            document.getElementById('successMessage').classList.add('show');
+            clearCart();
+            setTimeout(() => {
+                document.getElementById('successMessage').classList.remove('show');
+            }, 4000);
+        }
+
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We\'ll respond shortly.');
+            event.target.reset();
+        }
+
+        function bookOnline() {
+            window.open('https://bookings.nowbookit.com/?accountid=ac2c296b-aa4c-4c74-8982-7c8bd069a07c&venueid=5267&theme=dark&colors=hex,ffffff,689f38', '_blank');
+        }
+
+        function navigateTo(page) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active', 'page-enter');
+            });
+
+            const targetSection = document.getElementById(page);
+            if (targetSection) {
+                targetSection.classList.add('active', 'page-enter');
+                window.scrollTo(0, 0);
+            }
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[data-page="${page}"]`).classList.add('active');
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`.mobile-nav-link[data-page="${page}"]`).classList.add('active');
+
+            closeMobileMenu();
+        }
+
+        document.querySelectorAll('[data-page]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateTo(link.getAttribute('data-page'));
+            });
+        });
+
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        function closeMobileMenu() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+
+        function closePromo() {
+            document.getElementById('promoModal').classList.remove('active');
+            localStorage.setItem('promoSeen', 'true');
+        }
+
+        document.getElementById('promoModal').addEventListener('click', (e) => {
+            if (e.target.id === 'promoModal') closePromo();
+        });
+
+        window.addEventListener('load', () => {
+            renderMenuSection(document.getElementById('breakfastContainer'), breakfastItems);
+            renderMenuSection(document.getElementById('lunchContainer'), lunchItems);
+            renderMenuSection(document.getElementById('dinnerContainer'), dinnerItems);
+            renderMenuSection(document.getElementById('specialContainer'), specialItems);
+            renderGallery(document.getElementById('homeGallery'), 8);
+            renderGallery(document.getElementById('aboutGallery'), 8);
+            renderGallery(document.getElementById('contactGallery'), 4);
+
+            renderCategories();
+            renderOrderItems('Breakfast');
+
+            if (!localStorage.getItem('promoSeen')) {
+                setTimeout(() => {
+                    document.getElementById('promoModal').classList.add('active');
+                }, 800);
+            }
+        });
+    </script>
+</body>
+</html>
